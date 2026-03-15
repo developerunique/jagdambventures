@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jagdamb Ventures - Photo Gallery</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fefcf7;
+      color: #2d2d2d;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header / Navbar - exactly same as main website */
+    .header {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      padding: 10px 0;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #2d2d2d;
+      line-height: 1.2;
+    }
+
+    .logo-tagline {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      color: #c49b63;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav ul li a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2d2d2d;
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav ul li a:hover,
+    .nav ul li a.active {
+      color: #c49b63;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      color: #2d2d2d;
+      cursor: pointer;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 50px 0 20px;
+    }
+
+    .page-title h1 {
+      font-size: 2.5rem;
+      color: #2d2d2d;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #c49b63;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* Simple 3x3 Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .photo-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .photo-img {
+      width: 100%;
+      height: 250px;
+      background: #e7d6c0;  /* fallback color */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-caption {
+      padding: 15px;
+      text-align: center;
+      font-weight: 500;
+      color: #2d2d2d;
+      border-top: 1px solid #f0e4d5;
+    }
+
+    /* Footer - exactly same as main website */
+    .footer {
+      background: #1f2a36;
+      color: #eae1d7;
+      padding-top: 60px;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .footer h3, .footer h4 {
+      color: white;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-about p {
+      color: #cbbfb3;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: #cbbfb3;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #c49b63;
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      margin-bottom: 12px;
+      color: #cbbfb3;
+    }
+
+    .footer-contact i {
+      color: #c49b63;
+      margin-right: 10px;
+    }
+
+    .footer-bottom {
+      background: #121a22;
+      padding: 25px 0;
+      text-align: center;
+      color: #a59a8e;
+    }
+
+    .footer-bottom .copyright {
+      font-size: 0.95rem;
+    }
+
+    /* Mobile Responsive */
+    @media screen and (max-width: 992px) {
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav ul {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        padding: 20px 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border-radius: 0 0 20px 20px;
+        gap: 0;
+        z-index: 999;
+      }
+      
+      .nav ul.show {
+        display: flex;
+      }
+      
+      .nav ul li {
+        text-align: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #f3e1d2;
+      }
+      
+      .nav ul li:last-child {
+        border-bottom: none;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      
+      .photo-img {
+        height: 200px;
+      }
+      
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .logo h2 {
+        font-size: 1.4rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .page-title h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <h2>Jagdamb Ventures</h2>
+        <span class="logo-tagline">MultiCuisine · Banquets</span>
+      </div>
+      <div class="menu-toggle" id="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <nav class="nav">
+        <ul id="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Title -->
+  <div class="page-title">
+    <div class="container">
+      <h1>Our Photo Gallery</h1>
+      <p>ENJOY REFRESHING HAPPINESS</p>
+    </div>
+  </div>
+
+  <!-- 3x3 Gallery Grid -->
+  <div class="container">
+    <div class="gallery-grid">
+      
+      <!-- Photo 1 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <!-- APNI PHOTO YAHAN LAGAO -->
+          <img src="img/unnamed (1).jpg.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+1'">
+        </div>
+        <!-- <div class="photo-caption">Restaurant Interior</div> -->
+      </div>
+
+      <!-- Photo 2 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/unnamed (2).jpg.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+2'">
+        </div>
+        <!-- <div class="photo-caption">Special Dishes</div> -->
+      </div>
+
+      <!-- Photo 3 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/img (3).jpg.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+3'">
+        </div>
+        <!-- <div class="photo-caption">Family Section</div> -->
+      </div>
+
+      <!-- Photo 4 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/unnamed (4).jpg.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+4'">
+        </div>
+        <!-- <div class="photo-caption">Banquet Hall</div> -->
+      </div>
+
+      <!-- Photo 5 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/unnamed (6).jpg.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+5'">
+        </div>
+        <!-- <div class="photo-caption">Chef Special</div> -->
+      </div>
+
+      <!-- Photo 6 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/unnamed (7).jpg.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+6'">
+        </div>
+        <!-- <div class="photo-caption">Dining Area</div> -->
+      </div>
+
+      <!-- Photo 7 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/unnamed (8).jpg.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+7'">
+        </div>
+        <!-- <div class="photo-caption">Desserts</div> -->
+      </div>
+
+      <!-- Photo 8 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/img9.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+8'">
+        </div>
+        <!-- <div class="photo-caption">Beverages</div> -->
+      </div>
+
+      <!-- Photo 9 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/img10.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+9'">
+        </div>
+        <!-- <div class="photo-caption">Welcome Ambrosia</div> -->
+      </div>
+
+      <!-- Photo 9 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/img11.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+9'">
+        </div>
+        <!-- <div class="photo-caption">Welcome Ambrosia</div> -->
+      </div>
+
+      <!-- Photo 9 -->
+      <div class="photo-card">
+        <div class="photo-img">
+          <img src="img/img12.jpeg" alt="Restaurant" onerror="this.src='https://via.placeholder.com/400x250?text=Photo+9'">
+        </div>
+        <!-- <div class="photo-caption">Welcome Ambrosia</div> -->
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-about">
+        <h3>Jagdamb Ventures</h3>
+        <p>Jagdamb Ventures – MultiCuisine Restaurant & Banquets – where every meal is a celebration.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><i class="fas fa-envelope"></i> info@jagdambventures.com</p>
+        <p><i class="fas fa-map-pin"></i> Shivaji Nagar, Pune</p>
+        <p><i class="fas fa-heart"></i> Family Section reserved</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">&copy; <span id="current-year"></span> Jagdamb Ventures. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for mobile menu and year -->
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    if (menuToggle && navList) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navList.classList.toggle('show');
+      });
+
+      // Close menu when link clicked
+      navList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navList.classList.remove('show');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (event) => {
+        if (!menuToggle.contains(event.target) && !navList.contains(event.target)) {
+          navList.classList.remove('show');
+        }
+      });
+    }
+
+    // Current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
